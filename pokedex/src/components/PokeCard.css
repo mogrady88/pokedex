@@ -1,0 +1,9 @@
+#PokeCard {
+  height: 160px;
+  width: 120px;
+  min-width: 120px;
+  min-height: 160px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px;
+}
