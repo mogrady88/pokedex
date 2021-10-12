@@ -15,8 +15,8 @@ const PokemonList = (props) => {
 
   return (
     <div id="PokeList">
-      <div>Pokedex</div>
       <input
+        placeholder="Find your pokemon!"
         onChange={(e) => props.handleSearch(e)}
         value={props.searchFilter}
       />

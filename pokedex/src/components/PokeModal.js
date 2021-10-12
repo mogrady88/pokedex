@@ -1,8 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PokeModal.css';
 
+async function getEvos(url) {
+  const result = await fetch(url);
+  return await result.json();
+}
+
 const PokeModal = (props) => {
+  const [evolutionChain, setEvolutionChain] = useState([]);
+  useEffect(() => {
+    function getEvolutionParent(e) {
+      setEvolutionChain((ary) => [...ary, e.species.name]);
+      if (e.evolves_to.length === 0) return;
+      getEvolutionParent(e.evolves_to[0]);
+    }
+    async function getEvolutions() {
+      const result = await getEvos(props.selectedPokemon.evolution_chain.url);
+      setEvolutionChain((ary) => [result.chain.species.name]);
+      if (result.chain.evolves_to.length === 0) return;
+      if (result.chain.evolves_to.length > 1) {
+        //stupid eevee
+        return;
+      } else if (result.chain.evolves_to.length > 0) {
+        getEvolutionParent(result.chain.evolves_to[0]);
+      }
+    }
+    getEvolutions();
+  }, []);
   console.log(props.selectedPokemon);
+
+  const renderEvolvedFrom = () => {
+    if (evolutionChain.length === 0) return null;
+    return (
+      <p>
+        Evolutions: <br></br>
+        <ul>
+          {evolutionChain.map((e, idx) => (
+            <li key={idx} onClick={() => props.switchPokemon(e)}>
+              {e}
+            </li>
+          ))}
+        </ul>
+      </p>
+    );
+  };
 
   const renderModalBody = () => {
     return (
@@ -15,20 +56,43 @@ const PokeModal = (props) => {
           />
         </div>
         <div className="info-container">
-          <p>Name: {props.selectedPokemon.name}</p>
-          <p>Color: {props.selectedPokemon.color.name}</p>
-          <p>Found in: {props.selectedPokemon.habitat.name}</p>
+          <p className="pokemon-name">{props.selectedPokemon.name}</p>
+          <p className="pokemon-habitat">
+            Found in: {props.selectedPokemon.habitat.name}
+          </p>
+          <p className="pokemon-description">
+            Description:{' '}
+            {props.selectedPokemon.flavor_text_entries[0].flavor_text}
+          </p>
+          {renderEvolvedFrom()}
         </div>
+      </div>
+    );
+  };
+
+  const renderModalHeader = () => {
+    return (
+      <div
+        className="poke-modal-header"
+        style={{ backgroundColor: `${props.selectedPokemon.color.name}` }}
+      >
+        <span className="close-icon" onClick={props.closeModal}>
+          &times;
+        </span>
       </div>
     );
   };
 
   return (
     <div id="PokeModal">
-      <div className="poke-content">
-        <span className="close-icon" onClick={props.closeModal}>
-          &times;
-        </span>
+      <div
+        className="poke-content"
+        style={{
+          border: `3px solid ${props.selectedPokemon.color.name}`,
+          borderRadius: '6px',
+        }}
+      >
+        {renderModalHeader()}
         {renderModalBody()}
       </div>
     </div>

@@ -1,5 +1,4 @@
 #PokeModal {
-  /* display: none; */
   position: fixed;
   z-index: 1;
   left: 0;
@@ -12,21 +11,37 @@
 }
 
 .poke-content {
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
   height: 60vh;
   margin: auto;
   margin-top: 100px;
   background-color: #fefefe;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+
+  width: 60vw;
+  outline: 1px solid black;
+}
+
+.evolves-from {
+  text-decoration: underline;
+  cursor: pointer;
+  color: darkblue;
+}
+
+.poke-modal-header {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  margin: -1px -1px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .close-icon {
-  align-self: flex-end;
   cursor: pointer;
+  vertical-align: center;
 }
 
 .poke-modal-img {
@@ -36,6 +51,7 @@
 
 .poke-modal-body {
   display: flex;
+  padding: 10px;
 }
 
 .info-container {
@@ -46,4 +62,17 @@
   border: 1px solid black;
   margin-right: 10px;
   border-radius: 5px;
+}
+
+.pokemon-name {
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: underline;
+  margin-top: 0px;
+}
+
+.pokemon-habitat {
+}
+
+.pokemon-description {
 }

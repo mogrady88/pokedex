@@ -3,9 +3,29 @@
   width: 120px;
   min-width: 120px;
   min-height: 160px;
-  border: 1px solid black;
+  border: 5px solid;
+  background-color: papayawhip;
   border-radius: 5px;
-  margin: 5px;
+  margin: 20px;
   display: inline-block;
   cursor: pointer;
+  box-shadow: 5px 5px 10px gray;
+}
+
+.poke-num {
+  margin: 0px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.poke-img {
+  border: 2px solid goldenrod;
+  box-shadow: 2px 5px 5px lightgrey;
+  background-color: white;
+}
+
+.card-title {
+  margin: 0 5px;
+  font-size: 18px;
+  font-weight: 600;
 }

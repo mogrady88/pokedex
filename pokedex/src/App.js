@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import PokeModal from './components/PokeModal';
 import PokemonList from './components/PokemonList';
+import logo from './utils/logo.png';
 
 async function getAllPokemon() {
   const fullPokemonList = [];
@@ -24,9 +25,14 @@ const App = () => {
   useEffect(() => {
     const getPokemon = async () => {
       const results = await getAllPokemon();
-      let sortedResults = results.sort((a, b) => (a.order > b.order ? -1 : 1));
-      setFullPokeList(sortedResults);
-      setTimeout(() => setFilteredPokemon(sortedResults), 500);
+
+      setTimeout(() => {
+        let sortedResults = results.sort((a, b) =>
+          a.order < b.order ? -1 : 1
+        );
+        setFullPokeList(sortedResults);
+        setFilteredPokemon(sortedResults);
+      }, 500);
     };
 
     getPokemon();
@@ -68,17 +74,28 @@ const App = () => {
     );
   };
 
+  const handleSwitchPokemon = (name) => {
+    const foundPokemon = fullPokeList.find((e) => e.name === name);
+    if (!foundPokemon) return;
+    selectPokemon(foundPokemon);
+  };
+
   const renderPokeModal = () => {
     if (!showModal) return null;
     return (
       <div>
-        <PokeModal selectedPokemon={pokemon} closeModal={closeModal} />
+        <PokeModal
+          selectedPokemon={pokemon}
+          closeModal={closeModal}
+          switchPokemon={handleSwitchPokemon}
+        />
       </div>
     );
   };
 
   return (
     <div className="App">
+      <img className="logo" src={logo} alt="logo" />
       {renderPokemonList()}
       {renderPokeModal()}
     </div>
