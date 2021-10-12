@@ -34,13 +34,17 @@ const PokeModal = (props) => {
     return (
       <p>
         Evolutions: <br></br>
-        <ul>
+        <div>
           {evolutionChain.map((e, idx) => (
-            <li key={idx} onClick={() => props.switchPokemon(e)}>
+            <p
+              key={idx}
+              className="evolution-item"
+              onClick={() => props.switchPokemon(e)}
+            >
               {e}
-            </li>
+            </p>
           ))}
-        </ul>
+        </div>
       </p>
     );
   };
@@ -88,8 +92,8 @@ const PokeModal = (props) => {
       <div
         className="poke-content"
         style={{
-          border: `3px solid ${props.selectedPokemon.color.name}`,
-          borderRadius: '6px',
+          border: `5px solid ${props.selectedPokemon.color.name}`,
+          borderRadius: '5px',
         }}
       >
         {renderModalHeader()}

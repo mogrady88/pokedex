@@ -17,9 +17,7 @@
   margin: auto;
   margin-top: 100px;
   background-color: #fefefe;
-
   width: 60vw;
-  outline: 1px solid black;
 }
 
 .evolves-from {
@@ -35,8 +33,17 @@
   justify-content: flex-end;
   padding: 0 10px;
   margin: -1px -1px 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.evolution-item {
+  margin: 0px;
+  color: darkblue;
+  font-weight: 600;
+  text-decoration: underline;
+}
+.evolution-item::marker {
+  display: none !important;
 }
 
 .close-icon {
